@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Generated data: datasets, uploads, renders. Never commit (multi-GB, and may hold
+# third-party CAD whose licence forbids redistribution: docs/research/cad-sources.md).
+data/
+
+# UI build
+ui/node_modules/
+ui/dist/
+ui/*.tsbuildinfo
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

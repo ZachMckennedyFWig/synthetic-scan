@@ -1,0 +1,259 @@
+/* ──────────────────────────────────────────────────────────────
+   Linear — design tokens (corrected)
+   source: https://linear.app/homepage
+
+   Values below come from Linear's own :root custom properties,
+   captured verbatim by designlang. Anything marked DERIVED is
+   normalized by hand and was not extracted.
+
+   Fixed vs. the original linear-app-variables.css:
+     - --color-primary  #e4f222 -> #5e6ad2  (--color-brand-bg)
+     - --color-accent   #00ff05 -> #7170ff  (--color-accent)
+     - dropped #e4f222 / #00ff05 / #ff0000 (demo-graphic artifacts)
+     - --font-size-13.3333 removed: invalid custom-property ident,
+       the period makes the whole declaration get dropped by the parser
+     - --radius-lg, --radius-full and --shadow-sm were each declared
+       2-10x; only the last survived the cascade. Now unique.
+     - the "semantic" block emitted `success: [object Object];`,
+       which is invalid CSS. Replaced with real status colors.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Brand ────────────────────────────────────────────────── */
+  --color-brand-bg:        #5e6ad2;  /* fills / large UI only — 4.24:1 on --color-bg-primary */
+  --color-brand-fg:        #ffffff;  /* 4.70:1 on --color-brand-bg, AA */
+  --color-indigo:          #5e6ad2;
+  --color-accent:          #7170ff;
+  --color-accent-hover:    #828fff;
+  --color-accent-tint:     #18182f;
+  --color-link:            #828fff;  /* 6.93:1 on --color-bg-primary, AA — use for link TEXT */
+  --color-link-hover:      #ffffff;
+
+  /* ── Backgrounds ──────────────────────────────────────────── */
+  --color-bg-primary:      #08090a;
+  --color-bg-secondary:    #1c1c1f;
+  --color-bg-tertiary:     #232326;
+  --color-bg-quaternary:   #28282c;
+  --color-bg-quinary:      #282828;
+  --color-bg-level-0:      #08090a;
+  --color-bg-level-1:      #0f1011;
+  --color-bg-level-2:      #141516;
+  --color-bg-level-3:      #191a1b;
+  --color-bg-marketing:    #010102;
+  --color-bg-panel:        #0f1011;
+  --color-bg-tint:         #141516;
+  --color-bg-translucent:  #ffffff0d;
+
+  /* ── Foreground / text ────────────────────────────────────── */
+  --color-fg-primary:      #f7f8f8;  /* 7,614 uses */
+  --color-fg-secondary:    #d0d6e0;
+  --color-fg-tertiary:     #8a8f98;  /* 895 uses — the hero subhead */
+  --color-fg-quaternary:   #62666d;
+  --color-fg-on-light:     #08090a;  /* text on the inverted button */
+
+  /* aliases Linear also ships */
+  --color-text-primary:    var(--color-fg-primary);
+  --color-text-secondary:  var(--color-fg-secondary);
+  --color-text-tertiary:   var(--color-fg-tertiary);
+  --color-text-quaternary: var(--color-fg-quaternary);
+
+  /* ── Lines ────────────────────────────────────────────────── */
+  --color-line-primary:    #37393a;
+  --color-line-secondary:  #202122;
+  --color-line-tertiary:   #18191a;
+  --color-line-quaternary: #141515;
+  --color-line-tint:       #141516;
+
+  /* ── Borders ──────────────────────────────────────────────── */
+  --color-border-primary:            #23252a;  /* the hero card hairline */
+  --color-border-secondary:          #34343a;
+  --color-border-tertiary:           #3e3e44;
+  --color-border-translucent:        #ffffff0d;
+  --color-border-translucent-strong: #ffffff14;
+
+  /* ── Status ───────────────────────────────────────────────── */
+  --color-red:    #eb5757;
+  --color-green:  #27a644;
+  --color-blue:   #4ea7fc;
+  --color-yellow: #f0bf00;
+  --color-orange: #fc7840;
+  --color-teal:   #00b8cc;
+
+  --color-success: var(--color-green);
+  --color-warning: var(--color-yellow);
+  --color-error:   var(--color-red);
+  --color-info:    var(--color-blue);
+
+  /* ── Controls ─────────────────────────────────────────────── */
+  --color-button-invert-bg:       #e5e5e6;  /* the white "Sign up" pill */
+  --color-button-invert-bg-hover: #ffffff;
+
+  /* ── Focus ────────────────────────────────────────────────── */
+  --focus-ring-color:   #5e69d1;
+  --focus-ring-width:   1px;
+  --focus-ring-offset:  2px;
+  --focus-ring-outline: 1px solid #5e69d1;
+
+  /* ── Chrome ───────────────────────────────────────────────── */
+  --header-bg:       #0b0b0bcc;
+  --header-border:   #ffffff14;
+  --header-height:   72px;
+  --header-blur:     20px;
+  --color-overlay-primary: #000000d9;
+
+  /* ── Selection ────────────────────────────────────────────── */
+  --color-selection-bg:   color-mix(in lch, #5e6ad2, black 10%);
+  --color-selection-text: #ffffff;
+  --color-selection-dim:  color-mix(in lch, #5e6ad2, transparent 80%);
+
+  /* ── Typography: families ─────────────────────────────────── */
+  --font-sans: "Inter Variable", "SF Pro Display", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+               "Helvetica Neue", sans-serif;
+  --font-mono: "Berkeley Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-serif-display: "Tiempos Headline", ui-serif, Georgia, Cambria,
+                        "Times New Roman", Times, serif;
+  --font-settings:   "cv01", "ss03";
+  --font-variations: "opsz" auto;
+
+  /* ── Typography: weights ──────────────────────────────────── */
+  --font-weight-light:    300;
+  --font-weight-normal:   400;
+  --font-weight-medium:   510;
+  --font-weight-semibold: 590;
+  --font-weight-bold:     680;
+
+  /* ── Typography: text scale (body copy) ───────────────────── */
+  --text-tiny-size:    0.625rem;   --text-tiny-line-height:    1.5;           --text-tiny-letter-spacing:    -0.015em;
+  --text-micro-size:   0.75rem;    --text-micro-line-height:   1.4;           --text-micro-letter-spacing:   0;
+  --text-mini-size:    0.8125rem;  --text-mini-line-height:    1.5;           --text-mini-letter-spacing:    -0.01em;
+  --text-small-size:   0.875rem;   --text-small-line-height:   calc(21 / 14); --text-small-letter-spacing:   -0.013em;
+  --text-regular-size: 0.9375rem;  --text-regular-line-height: 1.6;           --text-regular-letter-spacing: -0.011em;
+  --text-large-size:   1.0625rem;  --text-large-line-height:   1.6;           --text-large-letter-spacing:   0;
+
+  /* ── Typography: title scale ──────────────────────────────── */
+  --title-1-size: 1.0625rem;  --title-1-line-height: 1.4;   --title-1-letter-spacing: -0.012em;
+  --title-2-size: 1.25rem;    --title-2-line-height: 1.33;  --title-2-letter-spacing: -0.012em;
+  --title-3-size: 1.5rem;     --title-3-line-height: 1.33;  --title-3-letter-spacing: -0.012em;
+  --title-4-size: 2rem;       --title-4-line-height: 1.125; --title-4-letter-spacing: -0.022em;
+  --title-5-size: 2.5rem;     --title-5-line-height: 1.1;   --title-5-letter-spacing: -0.022em;
+  --title-6-size: 3rem;       --title-6-line-height: 1;     --title-6-letter-spacing: -0.022em;
+  --title-7-size: 3.5rem;     --title-7-line-height: 1.1;   --title-7-letter-spacing: -0.022em;
+  --title-8-size: 4rem;       --title-8-line-height: 1.06;  --title-8-letter-spacing: -0.022em;
+  --title-9-size: 4.5rem;     --title-9-line-height: 1;     --title-9-letter-spacing: -0.022em;
+
+  /* Marketing hero — the H1 in the screenshot. The marketing site
+     overrides title-8: weight 590 -> 510, line-height 1.06 -> 1. */
+  --hero-size:           var(--title-8-size);
+  --hero-line-height:    1;
+  --hero-letter-spacing: -0.022em;
+  --hero-weight:         var(--font-weight-medium);
+
+  /* ── Radii ────────────────────────────────────────────────── */
+  --radius-4:      4px;
+  --radius-6:      6px;
+  --radius-8:      8px;    /* most-used control radius (33x) */
+  --radius-12:     12px;   /* 26x */
+  --radius-16:     16px;
+  --radius-24:     24px;
+  --radius-32:     32px;
+  --radius-full:   9999px;
+  --radius-circle: 50%;
+
+  --radius-control: var(--radius-8);
+  --radius-card:    var(--radius-12);
+  --radius-panel:   var(--radius-16);
+  --radius-pill:    var(--radius-full);
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-none:      0px 0px 0px transparent;
+  --shadow-tiny:      0px 0px 0px transparent;
+  --shadow-low:       0px 2px 4px #0000001a;
+  --shadow-medium:    0px 4px 24px #00000033;
+  --shadow-high:      0px 7px 32px #00000059;
+  --shadow-stack-low: 0px 8px 2px 0px #00000000, 0px 5px 2px 0px #00000003,
+                      0px 3px 2px 0px #0000000a, 0px 1px 1px 0px #00000012,
+                      0px 0px 1px 0px #00000014;
+
+  /* ── Motion ───────────────────────────────────────────────── */
+  --speed-quick:             0.1s;
+  --speed-regular:           0.25s;
+  --speed-highlight-fade-in: 0s;
+  --speed-highlight-fade-out: 0.15s;
+
+  --ease-in-quad:     cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-out-quad:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-cubic:    cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-out-cubic:   cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-in-out-cubic:cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-quart:    cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --ease-out-quart:   cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-in-out-quart:cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-quint:    cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --ease-out-quint:   cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-quint:cubic-bezier(0.86, 0, 0.07, 1);
+  --ease-in-expo:     cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-out-expo:    cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-circ:     cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  --ease-out-circ:    cubic-bezier(0.075, 0.82, 0.165, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+  /* ── Layout ───────────────────────────────────────────────── */
+  --page-max-width:          1024px;
+  --prose-max-width:         624px;
+  --homepage-max-width:      calc(1344px + 10px * 2);
+  --homepage-outer-padding:  10px;
+  --homepage-padding-inset:  32px;
+  --page-inset:              32px;
+  --page-padding-inline:     24px;
+  --page-padding-block:      64px;
+  --page-padding-y:          48px;
+  --min-tap-size:            44px;
+  --border-hairline:         1px;
+  --grid-columns:            12;
+
+  /* ── Spacing — DERIVED, not extracted ─────────────────────── */
+  /* Linear publishes no generic spacing scale. The original extract
+     emitted raw measured values (1, 23, 39, 47, 51, 63, 69, 79, 91,
+     111px...) which are computed-layout artifacts. This is a plain
+     4px scale; use the --page- and --homepage- vars above for the
+     values Linear actually specifies. */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ── Z-index ──────────────────────────────────────────────── */
+  --layer-1: 1;
+  --layer-2: 2;
+  --layer-3: 3;
+  --layer-footer:         50;
+  --layer-scrollbar:      75;
+  --layer-header:         100;
+  --layer-overlay:        500;
+  --layer-popover:        600;
+  --layer-command-menu:   650;
+  --layer-dialog-overlay: 699;
+  --layer-dialog:         700;
+  --layer-toasts:         800;
+  --layer-tooltip:        1100;
+  --layer-context-menu:   1200;
+  --layer-skip-nav:       5000;
+  --layer-max:            10000;
+}
+
+/* Breakpoints, normalized. The original emitted 641/769/1025/1281 —
+   off-by-one artifacts of reading max-width media queries. */
+/* sm 640px · md 768px · lg 1024px · xl 1280px · 2xl 1536px */

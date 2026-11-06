@@ -1,0 +1,45 @@
+[project]
+name = "synthscan"
+version = "0.1.0"
+description = "Synthetic 3D-scan dataset generator: CAD solids in, realistic artifact-laden scanner meshes out"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "trimesh>=4.5",
+    "open3d>=0.19",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "python-multipart>=0.0.12",
+    "build123d>=0.13",
+    "cascadio>=0.1.1",
+    "manifold3d>=3.0",
+]
+
+[project.scripts]
+synthscan = "synthscan.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3", "httpx>=0.27", "ruff>=0.7"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/synthscan"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E741"]  # `l` is the conventional name for a light direction
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.File", "fastapi.Depends"]  # FastAPI's declared-default idiom
